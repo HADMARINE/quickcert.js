@@ -1,6 +1,6 @@
 {
   "name": "quickcert.js",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Manages Certificates, private keys as quick as light with cli intergrated!",
   "main": "./dist/index.js",
   "bin": "./dist/cli/index.js",
