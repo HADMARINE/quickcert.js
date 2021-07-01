@@ -14,6 +14,8 @@ export default function register(args: Record<string, any>) {
     throw e;
   }
 
+  u.appendPreciseStringOnFileIfExists(".gitignore", loc);
+
   u.config.set(args.config, config);
 
   console.log(`${chalk.green(`✔`)} Successfully added credentials.`);

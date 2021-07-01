@@ -3,6 +3,7 @@ import fs from "fs";
 import prompts from "prompts";
 import define from "../define";
 import chalk from "chalk";
+import u from "./util";
 
 const logger = _logger.customName("QCERT");
 
@@ -40,19 +41,7 @@ export default async function init(args: Record<string, any>) {
       }
 
       if (fs.existsSync(".gitignore")) {
-        if (
-          fs
-            .readFileSync(".gitignore")
-            .toString()
-            .replace(" ", "")
-            .split("\n")
-            .indexOf(credentialRoot) === -1
-        ) {
-          fs.appendFileSync(".gitignore", `\n${credentialRoot}`);
-          console.log(
-            `${chalk.green(`✔`)} Added ${credentialRoot} to .gitignore list!`
-          );
-        }
+        u.appendPreciseStringOnFileIfExists(".gitignore", credentialRoot);
       }
     }
   }

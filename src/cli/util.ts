@@ -1,6 +1,7 @@
 import fs from "fs";
 import _logger from "clear-logger";
 import encrypt from "../util/encrypt";
+import chalk from "chalk";
 const logger = _logger.customName("QCERT");
 
 function resolveConfig(root: string): Record<string, string> {
@@ -33,6 +34,20 @@ function keyResolver(keyValue: any, keyRoot: string): string {
   }
 }
 
+function appendPreciseStringOnFileIfExists(filePath: string, string: string) {
+  if (
+    fs
+      .readFileSync(filePath)
+      .toString()
+      .replace(" ", "")
+      .split("\n")
+      .indexOf(string) === -1
+  ) {
+    fs.appendFileSync(filePath, `\n${string}`);
+    console.log(`${chalk.green(`✔`)} Added ${string} to ${filePath}`);
+  }
+}
+
 export default {
   config: {
     set: saveConfig,
@@ -40,4 +55,5 @@ export default {
   },
   keyResolver,
   encrypt,
+  appendPreciseStringOnFileIfExists,
 };
