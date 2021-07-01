@@ -17,7 +17,7 @@ const command: Record<string, any> = yargs
   )
   .command(
     "encrypt",
-    "Encrypts certificates.",
+    "Encrypts credentials.",
     {
       config: {
         alias: ["c", "cfg"],
@@ -39,7 +39,7 @@ const command: Record<string, any> = yargs
   )
   .command(
     "decrypt",
-    "Decrypt certificates",
+    "Decrypt credentials",
     {
       config: {
         alias: ["c", "cfg"],
@@ -73,7 +73,7 @@ const command: Record<string, any> = yargs
   )
   .command(
     "register",
-    "Register new ceritificate / private key",
+    "Register new ceritificate /  credentials",
     {
       directory: {
         alias: ["d", "dir"],
