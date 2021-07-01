@@ -6,6 +6,9 @@ import init from "./init";
 import encrypt from "./encrypt";
 import decrypt from "./decrypt";
 import register from "./register";
+import u from "./util";
+
+const w = u.wrapFunction;
 
 const command: Record<string, any> = yargs
   .usage(
@@ -32,7 +35,7 @@ const command: Record<string, any> = yargs
         describe: "Private key file root",
       },
     },
-    (args) => encrypt(args)
+    (args) => w(encrypt, "Failed to execute encrypt command.")(args)
   )
   .command(
     "decrypt",
@@ -54,7 +57,7 @@ const command: Record<string, any> = yargs
         describe: "Private key file root",
       },
     },
-    (args) => decrypt(args)
+    (args) => w(decrypt, "Failed to execute decrypt command.")(args)
   )
   .command(
     "init",
@@ -66,7 +69,7 @@ const command: Record<string, any> = yargs
         describe: "Custom config file root",
       },
     },
-    (args) => init(args)
+    (args) => w(init, "Failed to execute init command.")(args)
   )
   .command(
     "register",
@@ -92,7 +95,7 @@ const command: Record<string, any> = yargs
         describe: "Private key file root",
       },
     },
-    (argv) => register(argv)
+    (argv) => w(register, "Failed to execute register command.")(argv)
   )
   .help("help")
   .recommendCommands()

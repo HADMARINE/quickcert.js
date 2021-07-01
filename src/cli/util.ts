@@ -8,7 +8,7 @@ function resolveConfig(root: string): Record<string, string> {
   try {
     return JSON.parse(fs.readFileSync(root).toString());
   } catch (e) {
-    throw logger.error(e);
+    throw e;
   }
 }
 
@@ -16,7 +16,7 @@ function saveConfig(root: string, data: Record<string, any>): void {
   try {
     fs.writeFileSync(root, JSON.stringify(data));
   } catch (e) {
-    logger.error(e);
+    throw e;
   }
 }
 
@@ -48,6 +48,18 @@ function appendPreciseStringOnFileIfExists(filePath: string, string: string) {
   }
 }
 
+function wrapFunction<T>(func: T, errorMessage: string): T {
+  return function (...args: any[]) {
+    try {
+      (func as unknown as Function)(...args);
+    } catch (e) {
+      logger.error(errorMessage);
+      logger.debug(e, false);
+      process.exit(1);
+    }
+  } as unknown as T;
+}
+
 export default {
   config: {
     set: saveConfig,
@@ -56,4 +68,5 @@ export default {
   keyResolver,
   encrypt,
   appendPreciseStringOnFileIfExists,
+  wrapFunction,
 };

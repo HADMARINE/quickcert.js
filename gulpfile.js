@@ -1,7 +1,11 @@
 var gulp = require("gulp");
 var ts = require("gulp-typescript");
+var fs = require("fs");
 
 gulp.task("build", function () {
+  if (fs.existsSync("dist")) {
+    fs.rmdirSync("dist", { recursive: true });
+  }
   var merge = require("merge2");
   var tsProject = ts.createProject("tsconfig.json");
 
