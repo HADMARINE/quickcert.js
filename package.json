@@ -1,15 +1,15 @@
 {
   "name": "quickcert.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Manages Certificates, private keys as quick as light",
   "main": "./dist/cli/index.js",
+  "bin": "./dist/cli/index.js",
   "repository": "https://github.com/HADMARINE/quickcert.js",
-  "author": "HADMARINE <tsx@kakao.com>",
+  "author": "HADMARINE <contact@hadmarine.com>",
   "license": "MIT",
   "private": false,
-  "bin": {
-    "manager": "./dist/bin/index.js"
-  },
+  "bugs": "https://github.com/hadmarine/quickcert.js/issues",
+  "homepage": "https://github.com/hadmarine/quickcert.js",
   "scripts": {
     "build": "gulp build",
     "test": "NODE_ENV=test npx jest --config ./jest.config.js --watch --forceExit --testTimeout=10000",

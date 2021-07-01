@@ -1,10 +1,3 @@
-import encrypt from "./util/encrypt";
+import inline from "./function/inline";
 
-const priv = "fjdasklfjkldsajfkljdaskljfdsjaklfjdsdjaklfjdklsafjdlsaj";
-const key = "fdjskfkldsjfkljsdkfdsafdasfdsafdasfdsafdsfadfsadfslfjlksd";
-
-const enc = encrypt.encrypt(priv, key);
-console.log(enc);
-const dec = encrypt.decrypt(enc, key);
-
-console.log(priv == dec);
+export default inline;
