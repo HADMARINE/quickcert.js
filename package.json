@@ -1,0 +1,42 @@
+{
+  "name": "quickcert.js",
+  "version": "0.1.0",
+  "description": "Manages Certificates, private keys as quick as light",
+  "main": "./dist/cli/index.js",
+  "repository": "https://github.com/HADMARINE/quickcert.js",
+  "author": "HADMARINE <tsx@kakao.com>",
+  "license": "MIT",
+  "private": false,
+  "bin": {
+    "manager": "./dist/bin/index.js"
+  },
+  "scripts": {
+    "build": "gulp build",
+    "test": "NODE_ENV=test npx jest --config ./jest.config.js --watch --forceExit --testTimeout=10000",
+    "test-auto": "NODE_ENV=test npx jest --config ./jest.config.js --forceExit --detectOpenHandles"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/jest-expect-message": "^1.0.3",
+    "@types/node": "^15.12.5",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "jest": "^27.0.6",
+    "jest-expect-message": "^1.0.2",
+    "jest-html-reporter": "^3.4.1",
+    "jest-junit": "^12.2.0",
+    "merge2": "^1.4.1",
+    "require-strip-json-comments": "^2.0.0",
+    "ts-jest": "^27.0.3",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "@types/prompts": "^2.0.13",
+    "boxen": "^5.0.1",
+    "chalk": "^4.1.1",
+    "clear-logger": "^1.0.5",
+    "prompts": "^2.4.1",
+    "yargs": "^17.0.1"
+  }
+}

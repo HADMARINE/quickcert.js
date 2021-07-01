@@ -1,0 +1,7 @@
+node_modules
+reports
+yarn-error.log
+package-lock.json
+dist
+.DS_Store
+qcert.key
