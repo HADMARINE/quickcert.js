@@ -4,3 +4,5 @@ yarn-error.log
 package-lock.json
 dist
 .DS_Store
+qcert.key
+tslint.json
