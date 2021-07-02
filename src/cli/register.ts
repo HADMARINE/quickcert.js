@@ -14,7 +14,7 @@ export default async function register(args: Record<string, any>) {
     const response = await prompts({
       type: "confirm",
       name: "value",
-      message: "Do you want to overrite?",
+      message: "Do you want to overwrite?",
     });
 
     if (response.value) {
