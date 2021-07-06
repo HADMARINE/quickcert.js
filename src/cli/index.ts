@@ -6,6 +6,7 @@ import init from "./init";
 import renewal from "./renewal";
 import decrypt from "./decrypt";
 import encrypt from "./encrypt";
+import _delete from "./delete";
 import u from "./util";
 
 const w = u.wrapFunction;
@@ -93,7 +94,26 @@ const command: Record<string, any> = yargs
       })
     },
     async (argv) => (await w(encrypt, "Failed to execute command."))(argv)
-  )
+  ).command("delete <filePath>", "Unregister credentials from configuration",
+    (yargs) => {
+      yargs.positional('filePath', {
+        describe: "directory of file",
+        demandOption: true
+      }).option('config', {
+        alias: ['cfg'],
+        describe: "Custom config file root",
+        default: define.defaultDirectory.config
+      }).option('key', {
+        alias: ['k'],
+        default: null,
+        describe: "Private string key of encryption"
+      }).option('keyfile', {
+        alias: ['f', 'kf'],
+        default: define.defaultDirectory.key,
+        describe: "Private key file root"
+      })
+    },
+    async (argv) => (await w(_delete, "Failed to execute command."))(argv))
   .help("help")
   .recommendCommands()
   .strictCommands()
