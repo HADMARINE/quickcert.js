@@ -12,3 +12,7 @@ gulpfile.js
 yarn-error.log
 .gitignore
 reports
+.yarn
+.vscode
+.pnp.js
+.yarnrc.yml
