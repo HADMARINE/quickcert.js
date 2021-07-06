@@ -36,7 +36,21 @@ function keyResolver(keyValue: any, keyRoot: string): string {
   }
 }
 
-function appendPreciseStringOnFileIfExists(filePath: string, string: string) {
+async function appendPreciseStringOnFileIfExists(filePath: string, string: string) {
+  if (!fs.existsSync(filePath)) {
+    console.log(`${chalk.cyan(`!`)} File "${filePath}" doesn't exists.`);
+    const result = (await prompts({
+      type: 'confirm',
+      name: 'value',
+      message: 'Do you want to create?'
+    })).value;
+
+    if (result) {
+      fs.closeSync(fs.openSync(filePath, 'wx'));
+    } else {
+      return;
+    }
+  }
   if (
     fs
       .readFileSync(filePath)
