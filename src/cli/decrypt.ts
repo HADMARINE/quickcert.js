@@ -6,7 +6,8 @@ import _logger from "clear-logger";
 const logger = _logger.customName("QCERT");
 
 export default async function decrypt(args: Record<string, any>) {
-  u.checkConfig(args);
+  await u.checkConfig(args);
+
   const config = u.config.get(args.config);
   const privkey = u.keyResolver(args.key, args.keyfile);
 

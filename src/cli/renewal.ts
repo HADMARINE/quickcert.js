@@ -1,10 +1,8 @@
-import encryption from "../util/encrypt";
-import fs from "fs";
 import chalk from "chalk";
 import u from "./util";
 
 export default async function renewal(args: Record<string, any>) {
-  u.checkConfig(args);
+  await u.checkConfig(args);
 
   const config = u.config.get(args.config);
   const privkey = u.keyResolver(args.key, args.keyfile);

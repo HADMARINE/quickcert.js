@@ -40,9 +40,7 @@ export default async function init(args: Record<string, any>) {
         logger.error(e);
       }
 
-      if (fs.existsSync(".gitignore")) {
-        u.appendPreciseStringOnFileIfExists(".gitignore", credentialRoot);
-      }
+      await u.appendPreciseStringOnFileIfExists(".gitignore", credentialRoot);
     }
   }
 }

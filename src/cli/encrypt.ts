@@ -34,7 +34,7 @@ export default async function encrypt(args: Record<string, any>) {
     throw e;
   }
 
-  u.appendPreciseStringOnFileIfExists(".gitignore", loc);
+  await u.appendPreciseStringOnFileIfExists(".gitignore", loc);
 
   u.config.set(args.config, config);
 
