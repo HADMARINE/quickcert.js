@@ -16,4 +16,4 @@ reports
 .vscode
 .pnp.js
 .yarnrc.yml
-jest.config.json
+jest.config.js
