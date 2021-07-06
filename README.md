@@ -1,5 +1,7 @@
 # quickcert.js
 
+#### Version : 1.0.1
+
 ## Usage
 
 Use yarn or npx to execute it.
@@ -29,7 +31,7 @@ Decrypt credentials.
 - -f : custom keyfile root
 - -cfg : custom configuration file root
 
-### yarn quickcert.js register
+### yarn quickcert.js encrypt <filePath>
 
 #### Description
 
@@ -38,11 +40,23 @@ Of course, all the credentials will be encrypted, so don't be afraid of uploadin
 
 #### Parameters
 
-- -d [required] : directory of credential.
+- <filePath (positional)> [required] : directory of credential.
 - -k : private key (password) of encrypted credentials
 - -f : custom keyfile root
 - -cfg : custom configuration file root
 
-### yarn quickcert.js encrypt (not recommended)
+### yarn quickcert.js renewal
 
-#### Not your business XD
+#### Description
+
+Re-encrypts all the registered credentials.
+
+#### Parameters
+
+- -k : private key (password) of encrypted credentials
+- -f : custom keyfile root
+- -cfg : custom configuration file root
+
+## Bug Report
+
+Please report your bug in the issue tab!

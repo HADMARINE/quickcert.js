@@ -2,6 +2,8 @@ import fs from "fs";
 import _logger from "clear-logger";
 import encrypt from "../util/encrypt";
 import chalk from "chalk";
+import prompts from "prompts";
+import init from './init'
 const logger = _logger.customName("QCERT");
 
 function resolveConfig(root: string): Record<string, string> {
@@ -48,16 +50,32 @@ function appendPreciseStringOnFileIfExists(filePath: string, string: string) {
   }
 }
 
-function wrapFunction<T>(func: T, errorMessage: string): T {
-  return function (...args: any[]) {
+async function wrapFunction<T>(func: T, errorMessage: string): Promise<T> {
+  return async function (...args: any[]) {
     try {
-      (func as unknown as Function)(...args);
+      await ((func as unknown as Function)(...args));
     } catch (e) {
       logger.error(errorMessage);
-      logger.debug(e, false);
+      logger.error(e);
       process.exit(1);
     }
   } as unknown as T;
+}
+
+async function checkConfig(args: Record<string, any>) {
+  if (!fs.existsSync(args.config)) {
+    console.log(`${chalk.cyan(`!`)} Config file doesn't exists!`)
+    const result = (await prompts({
+      type: 'confirm',
+      name: 'value',
+      message: "Do you want to initialize?"
+    })).value;
+    if (result) {
+      await init(args);
+    } else {
+      throw new Error("No config file");
+    }
+  }
 }
 
 export default {
@@ -69,4 +87,5 @@ export default {
   encrypt,
   appendPreciseStringOnFileIfExists,
   wrapFunction,
+  checkConfig
 };
