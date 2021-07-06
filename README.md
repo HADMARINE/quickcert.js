@@ -1,7 +1,5 @@
 # quickcert.js
 
-#### Version : 1.0.1
-
 ## Installation
 
 ```sh
