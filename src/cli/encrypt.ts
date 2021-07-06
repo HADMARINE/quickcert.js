@@ -1,22 +1,42 @@
-import encryption from "../util/encrypt";
 import fs from "fs";
 import chalk from "chalk";
 import u from "./util";
+import prompts from "prompts";
 
-export default function encrypt(args: Record<string, any>) {
+export default async function encrypt(args: Record<string, any>) {
+  await u.checkConfig(args);
+
   const config = u.config.get(args.config);
   const privkey = u.keyResolver(args.key, args.keyfile);
-  const result: Record<string, any> = {};
+  const loc = args.filePath;
 
-  Object.entries(config).forEach(([key, value]) => {
-    if (value) {
-      result[key] = value;
+  if (Object.keys(config).indexOf(loc) !== -1) {
+    console.log(`${chalk.cyan(`!`)} File already exists.`);
+
+    const response = await prompts({
+      type: "confirm",
+      name: "value",
+      message: "Do you want to overwrite?",
+    });
+
+    if (response.value) {
+      delete config[loc];
+    } else {
+      console.log(`${chalk.red(`✘`)} Aborted.`);
       return;
     }
-    result[key] = u.encrypt.encrypt(value, privkey);
-  });
+  }
 
-  u.config.set(args.config, result);
+  try {
+    const file = fs.readFileSync(loc).toString();
+    config[loc] = u.encrypt.encrypt(file, privkey);
+  } catch (e) {
+    throw e;
+  }
 
-  console.log(`${chalk.green(`✔`)} Successfully encrypted credentials.`);
+  u.appendPreciseStringOnFileIfExists(".gitignore", loc);
+
+  u.config.set(args.config, config);
+
+  console.log(`${chalk.green(`✔`)} Successfully added credentials.`);
 }

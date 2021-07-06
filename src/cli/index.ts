@@ -3,21 +3,21 @@
 import yargs from "yargs";
 import define from "../define";
 import init from "./init";
-import encrypt from "./encrypt";
+import renewal from "./renewal";
 import decrypt from "./decrypt";
-import register from "./register";
+import encrypt from "./encrypt";
 import u from "./util";
 
 const w = u.wrapFunction;
 
 const command: Record<string, any> = yargs
   .usage(
-    "Usage: yarn quickcert [encrypt|decrypt|...] <params>\nWhen encrypt/decrypt, you must provide key by string or file. default root is " +
-      define.defaultDirectory.key
+    "Usage: yarn quickcert [command] <params>\nWhen encrypt/decrypt, you must provide key by string or file. default root is " +
+    define.defaultDirectory.key
   )
   .command(
-    "encrypt",
-    "Encrypts credentials.",
+    "renewal",
+    "Renewals registered credentials.",
     {
       config: {
         alias: ["c", "cfg"],
@@ -32,10 +32,10 @@ const command: Record<string, any> = yargs
       keyfile: {
         alias: ["f", "kf"],
         default: define.defaultDirectory.key,
-        describe: "Private key file root",
+        describe: "Custom private key file root",
       },
     },
-    (args) => w(encrypt, "Failed to execute encrypt command.")(args)
+    async (args) => (await w(renewal, "Failed to execute command."))(args)
   )
   .command(
     "decrypt",
@@ -57,7 +57,7 @@ const command: Record<string, any> = yargs
         describe: "Private key file root",
       },
     },
-    (args) => w(decrypt, "Failed to execute decrypt command.")(args)
+    async (args) => (await w(decrypt, "Failed to execute command."))(args)
   )
   .command(
     "init",
@@ -69,33 +69,30 @@ const command: Record<string, any> = yargs
         describe: "Custom config file root",
       },
     },
-    (args) => w(init, "Failed to execute init command.")(args)
+    async (args) => (await w(init, "Failed to execute command."))(args)
   )
   .command(
-    "register",
-    "Register new ceritificate /  credentials",
-    {
-      directory: {
-        alias: ["d", "dir"],
-        require: true,
-      },
-      config: {
-        alias: ["cfg"],
-        default: define.defaultDirectory.config,
+    "encrypt <filePath>",
+    "Encrypts new ceritificate /  credentials",
+    (yargs) => {
+      yargs.positional('filePath', {
+        describe: "directory of file",
+        demandOption: true
+      }).option('config', {
+        alias: ['cfg'],
         describe: "Custom config file root",
-      },
-      key: {
-        alias: ["k"],
+        default: define.defaultDirectory.config
+      }).option('key', {
+        alias: ['k'],
         default: null,
-        describe: "Private key of encryption",
-      },
-      keyfile: {
-        alias: ["f", "kf"],
+        describe: "Private string key of encryption"
+      }).option('keyfile', {
+        alias: ['f', 'kf'],
         default: define.defaultDirectory.key,
-        describe: "Private key file root",
-      },
+        describe: "Private key file root"
+      })
     },
-    (argv) => w(register, "Failed to execute register command.")(argv)
+    async (argv) => (await w(encrypt, "Failed to execute command."))(argv)
   )
   .help("help")
   .recommendCommands()
