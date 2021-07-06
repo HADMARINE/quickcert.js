@@ -1,13 +1,12 @@
 {
-  "name": "quickcert.js",
-  "version": "0.3.2",
+  "name": "quickcert",
+  "version": "1.0.1",
   "description": "Manages Certificates, private keys as quick as light with cli intergrated!",
   "main": "./dist/index.js",
   "bin": "./dist/cli/index.js",
   "repository": "https://github.com/HADMARINE/quickcert.js",
   "author": "HADMARINE <contact@hadmarine.com>",
   "license": "MIT",
-  "private": false,
   "bugs": "https://github.com/hadmarine/quickcert.js/issues",
   "homepage": "https://github.com/hadmarine/quickcert.js",
   "scripts": {
@@ -19,6 +18,7 @@
     "@types/jest": "^26.0.23",
     "@types/jest-expect-message": "^1.0.3",
     "@types/node": "^15.12.5",
+    "@types/yargs": "^17.0.2",
     "gulp": "^4.0.2",
     "gulp-typescript": "^6.0.0-alpha.1",
     "jest": "^27.0.6",
