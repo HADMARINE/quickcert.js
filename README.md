@@ -2,13 +2,26 @@
 
 #### Version : 1.0.1
 
+## Installation
+
+```sh
+// Install Globally
+npm install -g quickcert
+
+//Install Locally
+npm install quickcert
+```
+
 ## Usage
 
 Use yarn or npx to execute it.
 
-Install and execute <code>yarn quickcert.js help</code>, then all of the commands will pop out.
+If you installed globally, execute like : <code>quickcert <command></code>
+Else locally, execute like : <code>yarn quickcert <command></code>
 
-### yarn quickcert.js init
+Execute <code>quickcert help</code> for help.
+
+### quickcert init
 
 #### Description
 
@@ -19,7 +32,7 @@ Nothing hard, cli interface will pop out!
 
 - -cfg : custom configuration file root
 
-### yarn quickcert.js decrypt
+### quickcert decrypt
 
 #### Description
 
@@ -31,7 +44,7 @@ Decrypt credentials.
 - -f : custom keyfile root
 - -cfg : custom configuration file root
 
-### yarn quickcert.js encrypt <filePath>
+### quickcert encrypt <filePath>
 
 #### Description
 
@@ -45,7 +58,7 @@ Of course, all the credentials will be encrypted, so don't be afraid of uploadin
 - -f : custom keyfile root
 - -cfg : custom configuration file root
 
-### yarn quickcert.js renewal
+### quickcert renewal
 
 #### Description
 
@@ -53,6 +66,19 @@ Re-encrypts all the registered credentials.
 
 #### Parameters
 
+- -k : private key (password) of encrypted credentials
+- -f : custom keyfile root
+- -cfg : custom configuration file root
+
+### quickcert delete <filePath>
+
+#### Description
+
+Unregister credentials from configuration.
+
+#### Parameters
+
+- <filePath (positional)> [required] : directory of credential.
 - -k : private key (password) of encrypted credentials
 - -f : custom keyfile root
 - -cfg : custom configuration file root
