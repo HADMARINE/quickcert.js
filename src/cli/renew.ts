@@ -1,5 +1,6 @@
-import chalk from "chalk";
-import u from "./util";
+import chalk from 'chalk';
+import u from './util';
+import fs from 'fs';
 
 export default async function renewal(args: Record<string, any>) {
   await u.checkConfig(args);
@@ -8,11 +9,11 @@ export default async function renewal(args: Record<string, any>) {
   const privkey = u.keyResolver(args.key, args.keyfile);
   const result: Record<string, any> = {};
 
-  Object.entries(config).forEach(([key, value]) => {
-    result[key] = u.encrypt.encrypt(value, privkey);
+  Object.keys(config).forEach((key) => {
+    result[key] = u.encrypt.encrypt(fs.readFileSync(key).toString(), privkey);
   });
 
   u.config.set(args.config, result);
 
-  console.log(`${chalk.green(`✔`)} Successfully encrypted credentials.`);
+  console.log(`${chalk.green(`✔`)} Successfully renewed credentials.`);
 }

@@ -3,7 +3,7 @@
 import yargs from "yargs";
 import define from "../define";
 import init from "./init";
-import renewal from "./renewal";
+import renew from "./renew";
 import decrypt from "./decrypt";
 import encrypt from "./encrypt";
 import _delete from "./delete";
@@ -17,8 +17,8 @@ const command: Record<string, any> = yargs
     define.defaultDirectory.key
   )
   .command(
-    "renewal",
-    "Renewals registered credentials.",
+    "renew",
+    "Re-register and update registered credentials.",
     {
       config: {
         alias: ["c", "cfg"],
@@ -36,7 +36,7 @@ const command: Record<string, any> = yargs
         describe: "Custom private key file root",
       },
     },
-    async (args) => (await w(renewal, "Failed to execute command."))(args)
+    async (args) => (await w(renew, "Failed to execute command."))(args)
   )
   .command(
     "decrypt",

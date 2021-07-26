@@ -59,7 +59,7 @@ Of course, all the credentials will be encrypted, so don't be afraid of uploadin
 - -f : custom keyfile root
 - -cfg : custom configuration file root
 
-### quickcert renewal
+### quickcert renew
 
 #### Description
 
