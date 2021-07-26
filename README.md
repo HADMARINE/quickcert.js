@@ -1,4 +1,4 @@
-# quickcert.js
+# QuickCert.js
 
 ## Installation
 
