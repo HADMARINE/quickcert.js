@@ -6,10 +6,10 @@
 // Install Globally
 npm install -g quickcert
 
-//Install Locally - NPM
+// Install Locally - NPM
 npm install quickcert
 
-//Install Locally - YARN
+// Install Locally - YARN
 yarn add quickcert
 ```
 
