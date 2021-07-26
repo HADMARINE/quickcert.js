@@ -6,16 +6,19 @@
 // Install Globally
 npm install -g quickcert
 
-//Install Locally
+//Install Locally - NPM
 npm install quickcert
+
+//Install Locally - YARN
+yarn add quickcert
 ```
 
 ## Usage
 
 Use yarn or npx to execute it.
 
-If you installed globally, execute like : <code>quickcert <command></code>
-Else locally, execute like : <code>yarn quickcert <command></code>
+If you installed globally, execute like : <code>quickcert \<command></code>
+Else locally, execute like : <code>yarn quickcert \<command></code>
 
 Execute <code>quickcert help</code> for help.
 
