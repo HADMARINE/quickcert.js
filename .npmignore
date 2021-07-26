@@ -17,3 +17,4 @@ reports
 .pnp.js
 .yarnrc.yml
 jest.config.js
+.prettierrc.json
