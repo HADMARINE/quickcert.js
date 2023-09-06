@@ -6,7 +6,7 @@
   "bin": "./dist/cli/index.js",
   "repository": "https://github.com/HADMARINE/quickcert.js",
   "author": "HADMARINE <contact@hadmarine.com>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "bugs": "https://github.com/hadmarine/quickcert.js/issues",
   "homepage": "https://github.com/hadmarine/quickcert.js",
   "scripts": {
