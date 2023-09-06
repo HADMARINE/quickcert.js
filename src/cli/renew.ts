@@ -6,7 +6,7 @@ export default async function renewal(args: Record<string, any>) {
   await u.checkConfig(args);
 
   const config = u.config.get(args.config);
-  const privkey = u.keyResolver(args.key, args.keyfile);
+  const privkey = await u.keyResolver(args.key, args.keyfile);
   const result: Record<string, any> = {};
 
   Object.keys(config).forEach((key) => {

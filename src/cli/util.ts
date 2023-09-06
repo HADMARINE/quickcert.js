@@ -1,10 +1,11 @@
-import fs from "fs";
-import _logger from "clear-logger";
-import encrypt from "../util/encrypt";
-import chalk from "chalk";
-import prompts from "prompts";
-import init from './init'
-const logger = _logger.customName("QCERT");
+import fs from 'fs';
+import _logger from 'clear-logger';
+import encrypt from '../util/encrypt';
+import chalk from 'chalk';
+import prompts from 'prompts';
+import { initConfig, initKey } from './init';
+import define from '../define';
+const logger = _logger.customName('quickcert');
 
 function resolveConfig(root: string): Record<string, string> {
   try {
@@ -22,28 +23,37 @@ function saveConfig(root: string, data: Record<string, any>): void {
   }
 }
 
-function keyResolver(keyValue: any, keyRoot: string): string {
+async function keyResolver(keyValue: any, keyRoot: string): Promise<string> {
   if (keyValue) {
     return keyValue;
   } else if (keyRoot) {
+    await initKey();
     try {
       return fs.readFileSync(keyRoot).toString();
-    } catch (e) {
+    } catch (e: any) {
+      if (e.errno === -4058) {
+        throw new Error(`Key not found at ${keyRoot}`);
+      }
       throw e;
     }
   } else {
-    throw new Error("No key provided!");
+    throw new Error('No key provided!');
   }
 }
 
-async function appendPreciseStringOnFileIfExists(filePath: string, string: string) {
+async function appendPreciseStringOnFileIfExists(
+  filePath: string,
+  string: string,
+) {
   if (!fs.existsSync(filePath)) {
     console.log(`${chalk.cyan(`!`)} File "${filePath}" doesn't exists.`);
-    const result = (await prompts({
-      type: 'confirm',
-      name: 'value',
-      message: 'Do you want to create?'
-    })).value;
+    const result = (
+      await prompts({
+        type: 'confirm',
+        name: 'value',
+        message: 'Do you want to create?',
+      })
+    ).value;
 
     if (result) {
       fs.closeSync(fs.openSync(filePath, 'wx'));
@@ -55,8 +65,8 @@ async function appendPreciseStringOnFileIfExists(filePath: string, string: strin
     fs
       .readFileSync(filePath)
       .toString()
-      .replace(" ", "")
-      .split("\n")
+      .replace(' ', '')
+      .split('\n')
       .indexOf(string) === -1
   ) {
     fs.appendFileSync(filePath, `\n${string}`);
@@ -67,10 +77,9 @@ async function appendPreciseStringOnFileIfExists(filePath: string, string: strin
 async function wrapFunction<T>(func: T, errorMessage: string): Promise<T> {
   return async function (...args: any[]) {
     try {
-      await ((func as unknown as Function)(...args));
+      await (func as unknown as Function)(...args);
     } catch (e) {
-      logger.error(errorMessage);
-      logger.error(e);
+      logger.error(`${errorMessage} : ${(e as Error).message || e}`);
       process.exit(1);
     }
   } as unknown as T;
@@ -78,16 +87,21 @@ async function wrapFunction<T>(func: T, errorMessage: string): Promise<T> {
 
 async function checkConfig(args: Record<string, any>) {
   if (!fs.existsSync(args.config)) {
-    console.log(`${chalk.cyan(`!`)} Config file doesn't exists!`)
-    const result = (await prompts({
-      type: 'confirm',
-      name: 'value',
-      message: "Do you want to initialize?"
-    })).value;
+    if (args.config !== define.defaultDirectory.config) {
+      throw new Error('No config file at ' + args.config);
+    }
+    console.log(`${chalk.cyan(`!`)} Config file doesn't exists!`);
+    const result = (
+      await prompts({
+        type: 'confirm',
+        name: 'value',
+        message: 'Do you want to initialize?',
+      })
+    ).value;
     if (result) {
-      await init(args);
+      await initConfig(args.config);
     } else {
-      throw new Error("No config file");
+      throw new Error('No config file');
     }
   }
 }
@@ -101,5 +115,5 @@ export default {
   encrypt,
   appendPreciseStringOnFileIfExists,
   wrapFunction,
-  checkConfig
+  checkConfig,
 };
