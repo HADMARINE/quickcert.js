@@ -13,6 +13,16 @@ npm install quickcert
 yarn add quickcert
 ```
 
+## Terms
+
+### Key file
+Keyfile is a file in which the private key is saved. Quickcert will search this keyfile (default: qcert.key) unless you provide custom key (by -k option)
+
+### Config file
+Config file is a file in which the public keys of each file reside - in other words, encrypted.
+You can publicly save or publish this config file since there are any datas which are confidential. This encryption is executed by AES-256 (GCM Mode) Two-way cryptography and saved in base64 format.
+
+
 ## Usage
 
 Use yarn or npx to execute it.
@@ -21,6 +31,8 @@ If you installed globally, execute like : <code>quickcert \<command></code>
 Else locally, execute like : <code>yarn quickcert \<command></code>
 
 Execute <code>quickcert help</code> for help.
+
+
 
 ### quickcert init
 
@@ -31,7 +43,7 @@ Nothing hard, cli interface will pop out!
 
 #### Parameters
 
-- -cfg : custom configuration file root
+- --cfg : custom configuration file root
 
 ### quickcert decrypt
 
@@ -40,12 +52,14 @@ Nothing hard, cli interface will pop out!
 Decrypt credentials.
 
 #### Parameters
-
+- <filePath (positional)> [not required] : directory of credential. Could be one or more.
 - -k : private key (password) of encrypted credentials
-- -f : custom keyfile root
-- -cfg : custom configuration file root
-
-### quickcert encrypt <filePath>
+- --kf : custom keyfile root
+- --cfg : custom configuration file root
+#### Examples
+<code>quickcert decrypt a.txt</code>
+<code>quickcert decrypt a.txt b.key c.exe -k test</code>
+### quickcert encrypt
 
 #### Description
 
@@ -54,10 +68,16 @@ Of course, all the credentials will be encrypted, so don't be afraid of uploadin
 
 #### Parameters
 
-- <filePath (positional)> [required] : directory of credential.
+- <filePath (positional)> [required] : directory of credential. Could be one or more.
 - -k : private key (password) of encrypted credentials
-- -f : custom keyfile root
-- -cfg : custom configuration file root
+- --kf : custom keyfile root
+- --cfg : custom configuration file root
+
+#### Examples
+<code>quickcert encrypt a.txt</code>
+<code>quickcert encrypt a.txt b.key c.exe</code>
+
+
 
 ### quickcert renew
 
@@ -68,10 +88,10 @@ Re-encrypts all the registered credentials.
 #### Parameters
 
 - -k : private key (password) of encrypted credentials
-- -f : custom keyfile root
-- -cfg : custom configuration file root
+- --kf : custom keyfile root
+- --cfg : custom configuration file root
 
-### quickcert delete <filePath>
+### quickcert delete
 
 #### Description
 
@@ -81,9 +101,15 @@ Unregister credentials from configuration.
 
 - <filePath (positional)> [required] : directory of credential.
 - -k : private key (password) of encrypted credentials
-- -f : custom keyfile root
-- -cfg : custom configuration file root
+- --kf : custom keyfile root
+- --cfg : custom configuration file root
+
+#### Example
+<code>quickcert delete a.txt</code>
 
 ## Bug Report
 
 Please report your bug in the issue tab!
+
+## Prerequisites
+Node.js environment higher than Node14 (tested on Node14, Node16, Node20 environment)
