@@ -2529,6 +2529,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"async-mutex@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "async-mutex@npm:0.4.0"
+  dependencies:
+    tslib: ^2.4.0
+  checksum: 113dfee5fd3b6d8a21d5abda3061b8b1d4081aee126efbc1c4c03d4a5ce4004db73df59b55bb29ea4fe9c824eb7032b00d9ba93a9ff555769eb92268e7fd043d
+  languageName: node
+  linkType: hard
+
 "async-settle@npm:^1.0.0":
   version: 1.0.0
   resolution: "async-settle@npm:1.0.0"
@@ -6950,6 +6959,7 @@ fsevents@^2.3.2:
     "@types/node": ^15.12.5
     "@types/prompts": ^2.4.4
     "@types/yargs": ^17.0.2
+    async-mutex: ^0.4.0
     boxen: ^5.0.1
     chalk: ^4.1.1
     clear-logger: ^1.0.5
@@ -8135,6 +8145,13 @@ fsevents@^2.3.2:
     ts-node-transpile-only: dist/bin-transpile.js
     ts-script: dist/bin-script-deprecated.js
   checksum: dc461e2b9b931b00ff065530a0247f86da1d035e72a7ef6d7ed072dd8e6b236d1879f113dcc73a354d240c81b6b845445c3d32b16eeb68022ed27ab6d130c049
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.4.0":
+  version: 2.6.2
+  resolution: "tslib@npm:2.6.2"
+  checksum: 7c0bf3f6a7000ab7ccfa9ccfddfb549d2f6cdb645a9eb1a4736dd49d4f9d7baff41c027ab70e6be55d90d7a695bee95da0f4c06205ac9895b1650688d5fe66af
   languageName: node
   linkType: hard
 
