@@ -11,3 +11,4 @@ package-lock.json
 reports
 dist
 .DS_Store
+.vscode
