@@ -2,9 +2,12 @@ import fs from 'fs';
 import chalk from 'chalk';
 import u from './util';
 import prompts from 'prompts';
+import { Mutex } from 'async-mutex';
 
 export default async function encrypt(args: Record<string, any>) {
   await u.checkConfig(args);
+
+  const mutex = new Mutex();
 
   const config = u.config.get(args.config);
   const privkey = await u.keyResolver(args.key, args.keyfile);
@@ -13,20 +16,22 @@ export default async function encrypt(args: Record<string, any>) {
   await Promise.all(
     locs.map(async (loc) => {
       if (Object.keys(config).indexOf(loc) !== -1) {
-        console.log(`${chalk.cyan(`!`)} File already exists.`);
+        await mutex.runExclusive(async () => {
+          console.log(`${chalk.cyan(`!`)} File already exists.`);
 
-        const response = await prompts({
-          type: 'confirm',
-          name: 'value',
-          message: 'Do you want to overwrite?',
+          const response = await prompts({
+            type: 'confirm',
+            name: 'value',
+            message: 'Do you want to overwrite?',
+          });
+
+          if (response.value) {
+            delete config[loc];
+          } else {
+            console.log(`${chalk.red(`✘`)} Aborted.`);
+            return;
+          }
         });
-
-        if (response.value) {
-          delete config[loc];
-        } else {
-          console.log(`${chalk.red(`✘`)} Aborted.`);
-          return;
-        }
       }
 
       try {
