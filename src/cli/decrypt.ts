@@ -11,7 +11,9 @@ export default async function decrypt(args: Record<string, any>) {
   const privkey = await u.keyResolver(args.key, args.keyfile);
   const file = args.filePath as string[] | [null];
 
-  if (file[0] !== null) {
+  console.log(file);
+
+  if (file.length !== 0) {
     (file as string[]).forEach((filePath) => {
       if (!config[filePath]) {
         logger.error(`File ${filePath} is not registered.`);
