@@ -1,5 +1,5 @@
 # QuickCert.js
-
+IMPORTANT : As a package which handles sensitive datas, QUICKERT DOES NOT COLLECT ANY DATA IF IT IS SENSITIVE OR NOT. So relax!
 ## Installation
 
 ```sh
